@@ -11,26 +11,219 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	// ripped from MI
+	// for KJS
+	maven {
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
+	// for Patchouli
+	maven {
+		url 'https://maven.blamejared.com'
+	}
+	// for WTHIT
+	maven {
+		url 'https://maven.bai.lol'
+	}
+	// for AE2
+	maven {
+		name "Modmaven"
+		url "https://modmaven.dev"
+		content {
+			includeGroup "appeng"
+		}
+	}
+	maven {
+		url "https://maven.shedaniel.me"
+		content {
+			includeGroup "me.sargunvohra.mcmods"
+			includeGroup "me.shedaniel.cloth"
+			includeGroup "me.shedaniel"
+			includeGroup "dev.architectury"
+		}
+	}
+	maven {
+		url "https://maven.terraformersmc.com"
+		content {
+			includeGroup "com.terraformersmc"
+		}
+	}
+	// for DashLoader
+	maven {
+		name "DashLoader"
+		url 'https://maven.oskarstrom.net'
+		content {
+			includeGroup "net.oskarstrom"
+		}
+	}
+	maven {
+		name 'Jitpack for MI'
+		url 'https://jitpack.io'
+		content {
+			includeGroup "com.github.KubeJS-Mods"
+			includeGroup "com.github.GabrielOlvH"
+			/* For Magna */
+			includeGroup "com.github.Technici4n"
+			includeGroup "com.github.Draylar.omega-config"
+		}
+	}
+	// to build indrev
+	maven {
+		name = "CottonMC"
+		url = "https://server.bbkr.space/artifactory/libs-release"
+		content {
+			includeGroup "io.github.cottonmc"
+		}
+	}
+	maven {
+		name = "dblsaiko"
+		url = "https://maven.dblsaiko.net/"
+	}
+	maven {
+		name = "Technici4n"
+		url = "https://raw.githubusercontent.com/Technici4n/Technici4n-maven/master/"
+		content {
+			includeGroup "net.fabricmc.fabric-api"
+			includeGroup "dev.technici4n"
+			includeGroup "dev.latvian.mods"
+		}
+	}
+	maven {
+		url "https://maven.saps.dev/minecraft"
+		content {
+			includeGroup "dev.latvian.mods"
+			includeGroup "dev.ftb.mods"
+		}
+	}
+	// for reach entity attributes, required by Magna
+	maven {
+		url = "https://maven.jamieswhiteshirt.com/libs-release/"
+		content {
+			includeGroup "com.jamieswhiteshirt"
+		}
+	}
+	// for PlayerAbilityLib
+	maven {
+		name = 'Ladysnake Mods'
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+		content {
+			includeGroup 'io.github.ladysnake'
+			includeGroupByRegex 'io\\.github\\.onyxstudios.*'
+		}
+	}
+	maven {
+		url "https://maven.parchmentmc.net/"
+		content {
+			includeGroup "org.parchmentmc.data"
+		}
+	}
+	// for AE2
+	maven {
+		name = "Modmaven"
+		url = uri("https://modmaven.dev/")
+
+		content {
+			includeGroup("appeng")
+		}
+	}
+	// For the "No Indium?" mod
+	maven {
+		url = 'https://maven.cafeteria.dev/releases/'
+		content {
+			includeGroup "me.luligabi"
+		}
+	}
+	// For MI
+	maven {
+		name = "Modrinth"
+		url = "https://api.modrinth.com/maven"
+		content {
+			includeGroup "maven.modrinth"
+		}
+	}
+	mavenLocal()
 }
 
 dependencies {
-	// To change the versions see the gradle.properties file
+	// ripped from MI
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	mappings loom.layered() {
+		officialMojangMappings()
+		parchment("org.parchmentmc.data:parchment-1.18.2:2022.03.13@zip")
+	}
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// Uncomment the following line to enable the deprecated Fabric API modules. 
-	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
+	// Dependencies
 
-	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+	modImplementation("me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	include modImplementation("vazkii.patchouli:Patchouli:${project.patchouli_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("mcp.mobius.waila:wthit:fabric-${project.wthit_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("com.terraformersmc:modmenu:${project.mod_menu_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modCompileOnly("dev.latvian.mods:kubejs-fabric:1802.5.0-build.312") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	include modImplementation("com.github.Technici4n:magna:${project.magna_version}") {
+		exclude(group: "io.github.prospector")
+		exclude(group: "me.shedaniel.cloth")
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	include modApi("teamreborn:energy:${project.tr_energy_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	include modImplementation("io.github.ladysnake:PlayerAbilityLib:${project.pal_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	// Include No Indium? https://github.com/Luligabi1/NoIndium
+	include "me.luligabi:NoIndium:${project.no_indium_version}"
+
+
+	modImplementation("lol.bai.megane:megane-api:${project.megane_api_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modRuntimeOnly("lol.bai.megane:megane-runtime:${project.megane_runtime_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+		exclude(group: "mcp.mobius.waila")
+	}
+
+	modRuntimeOnly("lol.bai.megane:megane-vanilla:${project.megane_vanilla_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+		exclude(group: "mcp.mobius.waila")
+	}
+
+	modCompileOnly('net.oskarstrom:DashLoader:2.1-dev4') {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("appeng:appliedenergistics2-fabric:${project.ae2_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation("maven.modrinth:modern-industrialization:${project.mi_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 processResources {

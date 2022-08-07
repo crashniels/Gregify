@@ -1,9 +1,11 @@
-# Fabric Example Mod
+# Gregify
 
-## Setup
+## Info
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+This mod tries to make MI (and others) more GregTech like. 
+After playing Omnifactory and a bit of GregTech New Horizons I felt something was missing on newer versions. 
 
 ## License
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+This project is licenced under MIT. 
+The textures are GregoriusT's and are licenced under CC0-1.0. 

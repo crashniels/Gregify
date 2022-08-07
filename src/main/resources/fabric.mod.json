@@ -1,38 +1,38 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "gregify",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Gregify",
+  "description": "Tries to aim for a more GregTech-like experience",
   "authors": [
-    "Me!"
+    "crashniels"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/crashniels/Gregify",
+    "sources": "https://github.com/crashniels/Gregify"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "MIT",
+  "icon": "assets/gregify/logo.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "de.crashniels.Gregify.Gregify"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "gregify.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
     "minecraft": "~1.19",
-    "java": ">=17"
+    "java": ">=17",
+    "modern_industrialization": "*"
   },
   "suggests": {
-    "another-mod": "*"
   }
 }
